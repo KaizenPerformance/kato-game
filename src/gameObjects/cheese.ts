@@ -22,19 +22,30 @@ export default class Cheese {
     private initialize() {
         this.body.setAllowGravity(false)
         this.body.setSize(26, 24)
-        this.resetPosition(24)
+        this.resetCheese(24)
     }
 
-    public move() {
+    public move(speedIncrease: number) {
         if(this.image.x <= -this.image.width / 2) {
             let offset = Phaser.Math.Between(0, 150)
-            this.resetPosition(offset)
+            this.resetCheese(offset)
         }
         
-        this.image.x += this.speed
+        this.image.x += this.speed + speedIncrease
     }
 
-    public resetPosition(offset: number = 0) {
+    public resetCheese(offset: number = 0) {
         this.image.x = this.scene.sys.game.canvas.width + offset
+
+        let imageIndex = Phaser.Math.Between(0, 1)
+
+        if(imageIndex == 0) {
+            this.image.setTexture('cheese1')
+            this.body.setSize(26, 24)
+        } else {
+            this.image.setTexture('cheese2')
+            this.body.setSize(20, 22)
+        }
+
     }
 }

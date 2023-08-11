@@ -8,6 +8,8 @@ export default class Kato {
     private scene: Phaser.Scene
     private groundLevel: number
 
+    private jumpAudio!: Phaser.Sound.BaseSound;
+
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, groundLevel: number) {
         this.scene = scene
         this.groundLevel = groundLevel
@@ -20,6 +22,8 @@ export default class Kato {
     }
 
     private initialize() {
+        this.jumpAudio = this.scene.sound.add('jump')!;
+
         if(!this.scene.anims.exists('k_ato_idle_anim')) {
             this.scene.anims.create({
                 key: 'k_ato_idle_anim',
@@ -48,8 +52,10 @@ export default class Kato {
         if(collidingWithGround) {
             this.image.play('k_ato_idle_anim', true)
 
-            if(isJumping)
+            if(isJumping) {
                 this.body.setVelocityY(-220)
+                this.jumpAudio.play()
+            }
         }
         else
             this.image.play('k_ato_jump_anim')
