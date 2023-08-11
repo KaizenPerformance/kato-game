@@ -21,7 +21,7 @@ const config: Phaser.Types.Core.GameConfig = {
 		autoCenter: Phaser.Scale.CENTER_BOTH
 	},
 	scene: [PlayScene, GameoverScene],
-
+	pixelArt: true
 }
 
 export default new Phaser.Game(config)
